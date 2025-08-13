@@ -1,45 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <title>Mappa Interattiva</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <style>
-    #map { height: 100vh; }
-  </style>
+    <meta charset="utf-8" />
+    <title>Mappa Interattiva</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <style>
+        body { margin:0; padding:0; }
+        #map { width: 100vw; height: 100vh; }
+    </style>
 </head>
 <body>
+
 <div id="map"></div>
 
+<!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-  // Dimensioni dell'immagine
-  var w = 2000, h = 1500; // cambia con le dimensioni reali della tua immagine
+    var w = 2000; // modifica con la larghezza reale di mappa.png
+    var h = 1500; // modifica con l'altezza reale di mappa.png
 
-  // Crea mappa
-  var map = L.map('map', {
-    crs: L.CRS.Simple,
-    minZoom: -1
-  });
+    var bounds = [[0,0],[h,w]];
 
-  // Limiti
-  var bounds = [[0,0], [h, w]];
-  
-  // Aggiungi immagine di sfondo
-  L.imageOverlay('https://imgur.com/a/XvotifO', bounds).addTo(map);
+    var map = L.map('map', {
+        crs: L.CRS.Simple, // Coordinate semplici per immagini
+        minZoom: -2
+    });
 
-  map.fitBounds(bounds);
+    L.imageOverlay('mappa.png', bounds).addTo(map);
 
-  // Aggiungi un marker con player audio
-  var marker = L.marker([500, 800]).addTo(map);
-  marker.bindPopup(`
-    <h3>Audio esempio</h3>
-    <audio controls>
-      <source src="URL_DEL_TUO_FILE_AUDIO" type="audio/mpeg">
-      Il tuo browser non supporta l'audio.
-    </audio>
-  `);
+    map.fitBounds(bounds);
+
+    // Posizione marker: [y, x] in pixel
+    var marker = L.marker([750, 1000]).addTo(map);
+    marker.bindPopup(`
+        <b>Audio di esempio</b><br>
+        <audio controls>
+            <source src="audio.mp3" type="audio/mpeg">
+            Il tuo browser non supporta l'audio.
+        </audio>
+    `);
+
 </script>
+
 </body>
 </html>
 
