@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Mappa Interattiva</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map { height: 100vh; }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  // Dimensioni dell'immagine
+  var w = 2000, h = 1500; // cambia con le dimensioni reali della tua immagine
+
+  // Crea mappa
+  var map = L.map('map', {
+    crs: L.CRS.Simple,
+    minZoom: -1
+  });
+
+  // Limiti
+  var bounds = [[0,0], [h, w]];
+  
+  // Aggiungi immagine di sfondo
+  L.imageOverlay('URL_DELLA_TUA_IMMAGINE', bounds).addTo(map);
+
+  map.fitBounds(bounds);
+
+  // Aggiungi un marker con player audio
+  var marker = L.marker([500, 800]).addTo(map);
+  marker.bindPopup(`
+    <h3>Audio esempio</h3>
+    <audio controls>
+      <source src="URL_DEL_TUO_FILE_AUDIO" type="audio/mpeg">
+      Il tuo browser non supporta l'audio.
+    </audio>
+  `);
+</script>
+</body>
+</html>
